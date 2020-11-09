@@ -1,13 +1,15 @@
 package Vehicle;
 
 public class Vehicle {
+
     //Member Variables
-    public int Id;
+    int Id;
     int Year;
     String Make;
     String Model;
 
-    //Constructor
+    //Constructors
+    public Vehicle(){}
     public Vehicle (int id, int year,String make, String model){
         Id = id;
         Year = year;
