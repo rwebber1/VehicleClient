@@ -3,6 +3,7 @@ package VehicleDao;
 import Database.Database;
 import Vehicle.Vehicle;
 
+import javax.xml.crypto.Data;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,7 +17,8 @@ public class VehicleDaoImplementation implements VehicleDao {
     private static Connection conn = Database.getConn();
 
     @Override
-    public int addVehicle(Vehicle vehicle) throws SQLException {
+    public void addVehicle(Vehicle vehicle) throws SQLException {
+
         //Create SQL Query
         String query = "Insert into vehicles(id, year, make, model) VALUES (" + vehicle.getId() + ", " + vehicle.getYear()+ ",?,?)";
 
@@ -27,8 +29,6 @@ public class VehicleDaoImplementation implements VehicleDao {
 
         //Execute SQL Query
         int n = ps.executeUpdate();
-
-        return n;
     }
 
     @Override
@@ -64,7 +64,8 @@ public class VehicleDaoImplementation implements VehicleDao {
             vehicle.setModel(rs.getString("model"));
         }
 
-        if(check == true) { return vehicle; } else{ return null; }
+        if(check) { return vehicle; }
+        else{ return null; }
     }
 
     @Override

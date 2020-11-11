@@ -36,4 +36,9 @@ public class Database {
         }
         return conn;
     }
+
+    //Not sure if necessary
+    public static void close() throws SQLException {
+        conn.close();
+    }
 }
