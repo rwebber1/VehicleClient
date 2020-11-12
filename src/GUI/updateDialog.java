@@ -22,11 +22,15 @@ public class updateDialog extends JDialog {
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
 
+        buttonOK.setEnabled(false);
+
         //populate with current record data
         idField.setText(tableData.getValueAt(tableData.getSelectedRow(), 0).toString());
         yearField.setText(tableData.getValueAt(tableData.getSelectedRow(), 1).toString());
         makeField.setText(tableData.getValueAt(tableData.getSelectedRow(), 2).toString());
         modelField.setText(tableData.getValueAt(tableData.getSelectedRow(), 3).toString());
+
+        validateInput();
 
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -54,6 +58,38 @@ public class updateDialog extends JDialog {
                 onCancel();
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+
+        idField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                super.keyReleased(e);
+                validateInput();
+            }
+        });
+
+        yearField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                super.keyReleased(e);
+                validateInput();
+            }
+        });
+
+        makeField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                super.keyReleased(e);
+                validateInput();
+            }
+        });
+
+        modelField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                super.keyReleased(e);
+                validateInput();
+            }
+        });
     }
 
     public Object[] onOK() {
@@ -71,4 +107,18 @@ public class updateDialog extends JDialog {
         dispose();
     }
 
+
+    private void validateInput() {
+        //Validation Checks
+        try {
+            if ((Integer.parseInt(yearField.getText()) >= 1950 && Integer.parseInt(yearField.getText()) <= 2050) &&
+                    (!(makeField.getText().isEmpty()) && !(modelField.getText().isEmpty()))) {
+                buttonOK.setEnabled(true);
+            } else {
+                buttonOK.setEnabled(false);
+            }
+        } catch (Exception error) {
+            buttonOK.setEnabled(false);
+        }
+    }
 }

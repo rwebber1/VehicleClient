@@ -28,7 +28,7 @@ public class VehicleDaoImplementation implements VehicleDao {
         ps.setString(2, vehicle.getModel());
 
         //Execute SQL Query
-        int n = ps.executeUpdate();
+        ps.executeUpdate();
     }
 
     @Override

@@ -15,11 +15,13 @@ public class addDialog extends JDialog {
     private JLabel YEARLabel;
     private JLabel MAKELabel;
     private JLabel MODELLabel;
+    Object[] record = new Object[4];
 
     public addDialog() {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(addButton);
+
 
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -47,21 +49,64 @@ public class addDialog extends JDialog {
                 onCancel();
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+
+        idField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                super.keyPressed(e);
+                validateInput();
+            }
+        });
+        yearField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                super.keyPressed(e);
+                validateInput();
+            }
+        });
+        makeField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                super.keyPressed(e);
+                validateInput();
+            }
+        });
+        modelField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                super.keyPressed(e);
+                validateInput();
+            }
+        });
     }
 
     public Object[] onOK() {
-        Object[] record = new Object[4];
-        record[0] = idField.getText();
-        record[1] = yearField.getText();
+
+        //Retrieve User Input
+        record[0] = Integer.parseInt(idField.getText());
+        record[1] = Integer.parseInt(yearField.getText());
         record[2] = makeField.getText();
         record[3] = modelField.getText();
+
         dispose();
 
         return record;
     }
 
     private void onCancel() {
-        // add your code here if necessary
         dispose();
+    }
+
+    private void validateInput() {
+        //Validation Checks
+        try {
+            if ((Integer.parseInt(yearField.getText()) >= 1950 && Integer.parseInt(yearField.getText()) <= 2050) &&
+                    (!(makeField.getText().isEmpty()) && !(modelField.getText().isEmpty()))) {
+                addButton.setEnabled(true);
+            }
+            else{addButton.setEnabled(false);}
+        } catch (Exception error){
+            addButton.setEnabled(false);
+        }
     }
 }

@@ -85,16 +85,22 @@ public class VehicleClient extends JPanel {
                     input.pack();
                     input.setVisible(true);
                     Object[] addRecord = new Object[4];
-                    addRecord = input.onOK();
-
-                    //add to table
-                    model.addRow(addRecord);
-
-                    //add to database
                     try {
-                        vDao.addVehicle(new Vehicle(Integer.parseInt(addRecord[0].toString()), Integer.parseInt(addRecord[1].toString()), addRecord[2].toString(), addRecord[3].toString()));
-                    } catch (SQLException throwables) {
-                        throwables.printStackTrace();
+                        addRecord = input.onOK();
+
+                        if (addRecord != null) {
+                            //add to table
+                            model.addRow(addRecord);
+
+                            //add to database
+                            try {
+                                vDao.addVehicle(new Vehicle(Integer.parseInt(addRecord[0].toString()), Integer.parseInt(addRecord[1].toString()), addRecord[2].toString(), addRecord[3].toString()));
+                            } catch (SQLException throwables) {
+                                throwables.printStackTrace();
+                            }
+                        }
+                    }
+                    catch (Exception error){
                     }
                     break;
                 case "Update" :
