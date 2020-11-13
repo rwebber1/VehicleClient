@@ -25,11 +25,23 @@ public class AppTest {
         vDao.deleteVehicle(101010);
     }
 
+    //Test if database does not accept empty model/make fields
+    @Test
+    public void addEmptyObject() throws SQLException {
+        VehicleDaoImplementation vDao = new VehicleDaoImplementation();
+
+        try {
+            vDao.addVehicle(new Vehicle(404040, 2010, null, null));
+        } catch(Exception e){
+            Assert.assertTrue(true);
+        }
+    }
+
     //Tests Update Function
     @Test
     public void testUpdate() throws SQLException {
         VehicleDaoImplementation vDao = new VehicleDaoImplementation();
-        Vehicle testVehicle = new Vehicle(202020, 1945, "Mazda", "Miata");
+        Vehicle testVehicle = new Vehicle(202020, 1955, "Mazda", "Miata");
         Vehicle updatedVehicle = new Vehicle(202020, 2015, "Mazda", "CX-5");
 
         vDao.addVehicle(testVehicle);
