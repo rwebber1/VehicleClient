@@ -14,10 +14,7 @@ import java.util.List;
 
 public class VehicleClient extends JPanel {
     private DefaultTableModel model = new DefaultTableModel();
-    private JTable table = new JTable() {
-        public boolean editCellAt(int row, int column){
-        return false;
-    }};
+    private JTable table;
 
     public VehicleClient() throws SQLException{
         setLayout(new BorderLayout(5, 5));
@@ -45,7 +42,13 @@ public class VehicleClient extends JPanel {
         }
 
         //Table setup
-        table = new JTable(model);
+        table = new JTable(model){
+            //Prevents editing cells directly
+            @Override
+            public boolean isCellEditable(int row,int column){
+                return false;
+            }
+        };
         table.setAutoCreateRowSorter(true);
         table.setCellSelectionEnabled(true);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -101,6 +104,7 @@ public class VehicleClient extends JPanel {
                         }
                     }
                     catch (Exception error){
+                        //runs when cancelled
                     }
                     break;
                 case "Update" :
@@ -129,6 +133,7 @@ public class VehicleClient extends JPanel {
                     }
                     break;
                 case "Delete":
+                    //Check to see if no row was selected
                     if(table.getSelectedRow() == -1) {
                         JOptionPane.showMessageDialog(null, "Error, no record selected");
                     }

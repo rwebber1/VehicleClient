@@ -8,8 +8,6 @@ public class Vehicle {
     String Make;
     String Model;
 
-    int Index;  //variable index only used in GUI for table
-
     //Constructors
     public Vehicle(){}
     public Vehicle (int id, int year,String make, String model){
@@ -24,12 +22,10 @@ public class Vehicle {
     public int getYear() { return Year; }
     public String getMake() { return Make; }
     public String getModel() { return Model; }
-    public int getIndex() { return Index; }
 
     //Mutators
     public void setId(int id) { Id = id; }
     public void setYear(int year) { Year = year; }
     public void setMake(String make) { Make = make; }
     public void setModel(String model) { Model = model; }
-    public void setIndex(int index) { Index = index; }
 }

@@ -25,9 +25,9 @@ public class AppTest {
         vDao.deleteVehicle(101010);
     }
 
-    //Test if database does not accept empty model/make fields
+    //Test if database does not accept null model/make fields
     @Test
-    public void addEmptyObject() throws SQLException {
+    public void testAddEmptyObject() throws SQLException {
         VehicleDaoImplementation vDao = new VehicleDaoImplementation();
 
         try {
